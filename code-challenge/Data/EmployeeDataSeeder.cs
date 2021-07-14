@@ -10,22 +10,22 @@ namespace challenge.Data
 {
     public class EmployeeDataSeeder
     {
-        private EmployeeContext _employeeContext;
+        private ApplicationContext _applicationContext;
         private const String EMPLOYEE_SEED_DATA_FILE = "resources/EmployeeSeedData.json";
 
-        public EmployeeDataSeeder(EmployeeContext employeeContext)
+        public EmployeeDataSeeder(ApplicationContext applicationContext)
         {
-            _employeeContext = employeeContext;
+            _applicationContext = applicationContext;
         }
 
         public async Task Seed()
         {
-            if(!_employeeContext.Employees.Any())
+            if(!_applicationContext.Employees.Any())
             {
                 List<Employee> employees = LoadEmployees();
-                _employeeContext.Employees.AddRange(employees);
+                _applicationContext.Employees.AddRange(employees);
 
-                await _employeeContext.SaveChangesAsync();
+                await _applicationContext.SaveChangesAsync();
             }
         }
 
@@ -46,17 +46,22 @@ namespace challenge.Data
 
         private void FixUpReferences(List<Employee> employees)
         {
+            //references to all employees
             var employeeIdRefMap = from employee in employees
-                                select new { Id = employee.EmployeeId, EmployeeRef = employee };
+                                   select new { Id = employee.EmployeeId, EmployeeRef = employee };
 
+            //foreach employee
             employees.ForEach(employee =>
             {
-                
+                //if there are extant direct reports
                 if (employee.DirectReports != null)
                 {
+                    //create list to hold those direct reports, "referencedEmployees"
                     var referencedEmployees = new List<Employee>(employee.DirectReports.Count);
+                    //foreach direct report
                     employee.DirectReports.ForEach(report =>
                     {
+                        // retrieve reference to the employee from the entire list
                         var referencedEmployee = employeeIdRefMap.First(e => e.Id == report.EmployeeId).EmployeeRef;
                         referencedEmployees.Add(referencedEmployee);
                     });
@@ -64,5 +69,24 @@ namespace challenge.Data
                 }
             });
         }
+
+
+
+        //private void fixupreferences(employee[] employees)
+        //{
+        //    var employeeidrefmap = from employee in employees
+        //                           select new { id = employee.employeeid, employeeref = employee };
+
+        //    foreach (var employee in employees)
+        //        if (employee.directreports != null)
+        //        {
+        //            directreport[] referencedemployees = new directreport[employee.directreports.length];
+        //            int arrayindex = 0;
+        //            foreach (var report in employee.directreports)
+        //                referencedemployees[arrayindex++] = employeeidrefmap.first(e => e.id == report.employeeid).employeeref;
+
+        //            employee.directreports = referencedemployees;
+        //        }
+        //}
     }
 }

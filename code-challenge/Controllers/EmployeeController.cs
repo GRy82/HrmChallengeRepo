@@ -6,6 +6,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 using challenge.Services;
 using challenge.Models;
+using Newtonsoft.Json;
 
 namespace challenge.Controllers
 {

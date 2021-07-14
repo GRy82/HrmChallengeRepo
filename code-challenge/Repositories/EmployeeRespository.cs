@@ -11,35 +11,35 @@ namespace challenge.Repositories
 {
     public class EmployeeRespository : IEmployeeRepository
     {
-        private readonly EmployeeContext _employeeContext;
+        private readonly ApplicationContext _applicationContext;
         private readonly ILogger<IEmployeeRepository> _logger;
 
-        public EmployeeRespository(ILogger<IEmployeeRepository> logger, EmployeeContext employeeContext)
+        public EmployeeRespository(ILogger<IEmployeeRepository> logger, ApplicationContext applicationContext)
         {
-            _employeeContext = employeeContext;
+            _applicationContext = applicationContext;
             _logger = logger;
         }
 
         public Employee Add(Employee employee)
         {
             employee.EmployeeId = Guid.NewGuid().ToString();
-            _employeeContext.Employees.Add(employee);
+            _applicationContext.Employees.Add(employee);
             return employee;
         }
 
         public Employee GetById(string id)
         {
-            return _employeeContext.Employees.SingleOrDefault(e => e.EmployeeId == id);
+            return _applicationContext.Employees.SingleOrDefault(e => e.EmployeeId == id);
         }
 
         public Task SaveAsync()
         {
-            return _employeeContext.SaveChangesAsync();
+            return _applicationContext.SaveChangesAsync();
         }
 
         public Employee Remove(Employee employee)
         {
-            return _employeeContext.Remove(employee).Entity;
+            return _applicationContext.Employees.Remove(employee).Entity;
         }
     }
 }

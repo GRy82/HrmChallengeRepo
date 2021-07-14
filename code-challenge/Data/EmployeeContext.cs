@@ -7,13 +7,14 @@ using System.Threading.Tasks;
 
 namespace challenge.Data
 {
-    public class EmployeeContext : DbContext
+    public class ApplicationContext : DbContext
     {
-        public EmployeeContext(DbContextOptions<EmployeeContext> options) : base(options)
+        public ApplicationContext(DbContextOptions<ApplicationContext> options) : base(options)
         {
 
         }
 
         public DbSet<Employee> Employees { get; set; }
+        public DbSet<Compensation> Compensation { get; set; }
     }
 }
