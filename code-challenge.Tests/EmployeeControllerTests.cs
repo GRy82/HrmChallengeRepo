@@ -1,6 +1,6 @@
-using CodeChallenge.Controllers;
-using CodeChallenge.Data;
-using CodeChallenge.Models;
+using challenge.Controllers;
+using challenge.Data;
+using challenge.Models;
 using Microsoft.AspNetCore;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Mvc;

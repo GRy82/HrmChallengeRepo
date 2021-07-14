@@ -3,11 +3,11 @@ using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
-using CodeChallenge.Data;
+using challenge.Data;
 using Microsoft.EntityFrameworkCore;
-using CodeChallenge.Repositories;
-using CodeChallenge.Services;
-using CodeChallenge.Controllers;
+using challenge.Repositories;
+using challenge.Services;
+using challenge.Controllers;
 
 namespace code_challenge.Tests.Integration
 {

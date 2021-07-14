@@ -1,8 +1,8 @@
-﻿using CodeChallenge.Models;
+﻿using challenge.Models;
 using System;
 using System.Threading.Tasks;
 
-namespace CodeChallenge.Repositories
+namespace challenge.Repositories
 {
     public interface IEmployeeRepository
     {

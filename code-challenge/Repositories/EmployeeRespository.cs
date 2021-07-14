@@ -2,12 +2,12 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-using CodeChallenge.Models;
+using challenge.Models;
 using Microsoft.Extensions.Logging;
 using Microsoft.EntityFrameworkCore;
-using CodeChallenge.Data;
+using challenge.Data;
 
-namespace CodeChallenge.Repositories
+namespace challenge.Repositories
 {
     public class EmployeeRespository : IEmployeeRepository
     {
@@ -22,7 +22,6 @@ namespace CodeChallenge.Repositories
 
         public Employee Add(Employee employee)
         {
-            //Guid is globally unique identifier(for unique accounts, systems, processes, sessions, documents etc.)
             employee.EmployeeId = Guid.NewGuid().ToString();
             _employeeContext.Employees.Add(employee);
             return employee;

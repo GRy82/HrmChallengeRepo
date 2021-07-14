@@ -1,11 +1,11 @@
-﻿using CodeChallenge.Models;
+﻿using challenge.Models;
 using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace CodeChallenge.Data
+namespace challenge.Data
 {
     public class EmployeeContext : DbContext
     {

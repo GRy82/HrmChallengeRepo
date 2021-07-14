@@ -2,11 +2,11 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-using CodeChallenge.Models;
+using challenge.Models;
 using Microsoft.Extensions.Logging;
-using CodeChallenge.Repositories;
+using challenge.Repositories;
 
-namespace CodeChallenge.Services
+namespace challenge.Services
 {
     public class EmployeeService : IEmployeeService
     {

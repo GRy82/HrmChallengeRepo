@@ -1,4 +1,4 @@
-﻿using CodeChallenge.Models;
+﻿using challenge.Models;
 using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
@@ -6,7 +6,7 @@ using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace CodeChallenge.Data
+namespace challenge.Data
 {
     public class EmployeeDataSeeder
     {

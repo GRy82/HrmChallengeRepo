@@ -4,10 +4,10 @@ using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
-using CodeChallenge.Services;
-using CodeChallenge.Models;
+using challenge.Services;
+using challenge.Models;
 
-namespace CodeChallenge.Controllers
+namespace challenge.Controllers
 {
     [Route("api/employee")]
     public class EmployeeController : Controller

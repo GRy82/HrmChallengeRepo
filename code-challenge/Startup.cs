@@ -8,10 +8,10 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
-using CodeChallenge.Data;
+using challenge.Data;
 using Microsoft.EntityFrameworkCore;
-using CodeChallenge.Repositories;
-using CodeChallenge.Services;
+using challenge.Repositories;
+using challenge.Services;
 
 namespace code_challenge
 {
@@ -31,7 +31,6 @@ namespace code_challenge
             {
                 options.UseInMemoryDatabase("EmployeeDB");
             });
-
             services.AddScoped<IEmployeeRepository,EmployeeRespository>();
             services.AddTransient<EmployeeDataSeeder>();
             services.AddScoped<IEmployeeService, EmployeeService>();
