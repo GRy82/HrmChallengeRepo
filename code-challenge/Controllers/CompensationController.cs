@@ -1,5 +1,7 @@
 ﻿using challenge.Models;
+using challenge.Services;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.Extensions.Logging;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -9,17 +11,44 @@ namespace challenge.Controllers
 {
     [Route("api/compensation")]
     public class CompensationController : Controller
-    {   
-        [HttpGet("{id}")]
-        public IActionResult GetCompensationById()
+    {
+        private readonly ICompensationService _compensationService;
+        private readonly ILogger _logger;
+       
+        public CompensationController(ILogger<CompensationController> logger, ICompensationService compensationService)
         {
-            return Ok();
+            _compensationService = compensationService;
+            _logger = logger;
+        }
+
+        [HttpGet("{id}", Name = "getCompensationById")]
+        public IActionResult GetCompensationById(string id)
+        {
+            _logger.LogDebug($"Received compensation get request for '{id}'");
+            var compensation = _compensationService.GetById(id);
+
+            if(compensation != null)
+                return Ok(compensation);
+
+            return NotFound();
         }
 
         [HttpPost]
-        public IActionResult CreateCompensation([FromBody] Compensation compensation)
+        public IActionResult CreateCompensation([FromBody] Compensation compensation, [FromServices] IEmployeeService employeeService)
         {
-            return Ok();
+            _logger.LogDebug($"Received compensation create request for employee with id: '{compensation.EmployeeId}' " +
+                $"with salary of {compensation.Salary} and effective date of {compensation.EffectiveDate}");
+
+            //Use integration tests to determine if this line is necessary, or if it will be handled appropriately below.
+            //if (compensation.EmployeeId == null) return BadRequest();
+            var employee = employeeService.GetById(compensation.EmployeeId);
+
+            if (employee == null)
+                return BadRequest();
+
+            _compensationService.Create(compensation);
+
+            return CreatedAtRoute("getCompensationById", new { id = compensation.EmployeeId }, compensation);
         }
     }
 }

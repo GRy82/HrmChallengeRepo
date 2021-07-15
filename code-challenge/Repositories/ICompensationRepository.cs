@@ -12,5 +12,7 @@ namespace challenge.Repositories
 
         Compensation GetById(string id);
 
+        Task SaveAsync();
+
     }
 }

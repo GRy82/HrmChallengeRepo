@@ -28,5 +28,10 @@ namespace challenge.Repositories
         {
             return _applicationContext.Compensation.SingleOrDefault(c => c.EmployeeId == id);
         }
+
+        public Task SaveAsync()
+        {
+            return _applicationContext.SaveChangesAsync();
+        }
     }
 }

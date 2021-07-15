@@ -13,6 +13,7 @@ namespace challenge.Services
         private readonly IEmployeeRepository _employeeRepository;
         private readonly ILogger<EmployeeService> _logger;
 
+
         public EmployeeService(ILogger<EmployeeService> logger, IEmployeeRepository employeeRepository)
         {
             _employeeRepository = employeeRepository;
