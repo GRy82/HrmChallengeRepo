@@ -19,11 +19,16 @@ namespace challenge.Services
 
         public Employee GetReportingStructure(string id)
         {
+<<<<<<< HEAD
             return _employeeRepository.GetDirectReports(id);
             //var employee = _employeeRepository.GetById(id);
             //employee.DirectReports = StructureReports(employee);
 
             //return employee;
+=======
+            _employeeRepository.GetDirectReports(id);
+            return new Employee();
+>>>>>>> 7f79f51b7f3d37424ce24fafc49df9e2157f4fb2
         }
 
         //private List<Employee> StructureReports(Employee currentEmployee)
