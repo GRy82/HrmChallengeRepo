@@ -39,8 +39,6 @@ namespace challenge.Controllers
             _logger.LogDebug($"Received compensation create request for employee with id: '{compensation.EmployeeId}' " +
                 $"with salary of {compensation.Salary} and effective date of {compensation.EffectiveDate}");
 
-            //Use integration tests to determine if this line is necessary, or if it will be handled appropriately below.
-            //if (compensation.EmployeeId == null) return BadRequest();
             var employee = employeeService.GetById(compensation.EmployeeId);
 
             if (employee == null)

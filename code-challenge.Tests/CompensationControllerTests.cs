@@ -71,6 +71,26 @@ namespace code_challenge.Tests.Integration
         }
 
         [TestMethod]
+        public void CreateCompensation_Returns_BadRequest()
+        {
+            // Arrange
+            var compensation = _compensation;
+            compensation.EmployeeId = null;
+            var requestContent = new JsonSerialization().ToJson(compensation);
+
+            // Execute
+            var postRequestTask = _httpClient.PostAsync("api/compensation",
+               new StringContent(requestContent, Encoding.UTF8, "application/json"));
+            var response = postRequestTask.Result;
+
+            // Assert
+            Assert.AreEqual(HttpStatusCode.BadRequest, response.StatusCode);
+
+            var newCompensation = response.DeserializeContent<Compensation>();
+            Assert.IsNull(newCompensation);
+        }
+
+        [TestMethod]
         public void GetCompensationById_Returns_Ok()
         {
             // Arrange
