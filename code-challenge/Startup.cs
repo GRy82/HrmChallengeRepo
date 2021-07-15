@@ -36,7 +36,6 @@ namespace code_challenge
             services.AddTransient<EmployeeDataSeeder>();
             services.AddScoped<IEmployeeService, EmployeeService>();
             services.AddScoped<ICompensationService, CompensationService>();
-            services.AddScoped<IReportingStructureService, ReportingStructureService>();
             services.AddMvc();
         }
 
