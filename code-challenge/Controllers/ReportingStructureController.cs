@@ -1,4 +1,6 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using challenge.Services;
+using Microsoft.AspNetCore.Mvc;
+using Microsoft.Extensions.Logging;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -9,7 +11,15 @@ namespace challenge.Controllers
     [Route("api/reporting-structure")]
     public class ReportingStructureController : Controller
     {
-        [HttpGet]
+        private readonly ILogger _logger;
+        private readonly IReportingStructureService _reportingStructureService;
+        public ReportingStructureController(ILogger<ReportingStructureController> logger, IReportingStructureService reportingStructureService)
+        {
+            _reportingStructureService = reportingStructureService;
+            _logger = logger;
+        }
+
+        [HttpGet("{id}", Name = "getReportStructureById")]
         public IActionResult GetReportStructureById(string id)
         {
             return Ok();

@@ -38,7 +38,7 @@ namespace code_challenge.Tests.Integration
                 EmployeeId = "16a596ae-edd3-4847-99fe-c4518e82c86f",
                 Salary = 65000,
                 EffectiveDate = DateTime.Now
-            };
+            }; 
         }
 
         [ClassCleanup]
@@ -47,6 +47,7 @@ namespace code_challenge.Tests.Integration
             _httpClient.Dispose();
             _testServer.Dispose();
         }
+
 
         [TestMethod]
         public void CreateCompensation_Returns_Created()
@@ -74,8 +75,10 @@ namespace code_challenge.Tests.Integration
         public void CreateCompensation_Returns_BadRequest()
         {
             // Arrange
-            var compensation = _compensation;
-            compensation.EmployeeId = null;
+            var compensation = new Compensation()
+            {
+                EmployeeId = null, Salary = _compensation.Salary, EffectiveDate = _compensation.EffectiveDate
+            };
             var requestContent = new JsonSerialization().ToJson(compensation);
 
             // Execute
@@ -97,7 +100,7 @@ namespace code_challenge.Tests.Integration
             var compensation = _compensation;
 
             // Execute
-            var getRequestTask = _httpClient.GetAsync($"api/compensation/{_compensation.EmployeeId}");
+            var getRequestTask = _httpClient.GetAsync($"api/compensation/{compensation.EmployeeId}");
             var response = getRequestTask.Result;
 
             // Assert

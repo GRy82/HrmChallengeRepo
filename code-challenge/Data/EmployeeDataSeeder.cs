@@ -10,7 +10,7 @@ namespace challenge.Data
 {
     public class EmployeeDataSeeder
     {
-        private ApplicationContext _applicationContext;
+        private readonly ApplicationContext _applicationContext;
         private const String EMPLOYEE_SEED_DATA_FILE = "resources/EmployeeSeedData.json";
 
         public EmployeeDataSeeder(ApplicationContext applicationContext)

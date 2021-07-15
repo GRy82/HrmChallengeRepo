@@ -9,14 +9,18 @@ namespace challenge.Services
 {
     public class ReportingStructureService : IReportingStructureService
     {
-        private readonly IEmployeeRepository _empoyeeRepository;
+        private readonly IEmployeeRepository _employeeRepository;
+
         public ReportingStructureService(IEmployeeRepository employeeRepository)
         {
-            _empoyeeRepository = employeeRepository;
+            _employeeRepository = employeeRepository;
+            
         }
+
         public Employee GetReportingStructure(string id)
         {
-            throw new NotImplementedException();
+            _employeeRepository.GetDirectReports(id);
+            return new Employee();
         }
     }
 }
