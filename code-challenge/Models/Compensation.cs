@@ -11,7 +11,7 @@ namespace challenge.Models
         [Key]
         public string EmployeeId { get; set; }
         
-        public double Salary { get; set; }
+        public int Salary { get; set; }
 
         public DateTime EffectiveDate { get; set; }
     }
