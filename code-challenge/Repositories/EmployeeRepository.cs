@@ -9,12 +9,12 @@ using challenge.Data;
 
 namespace challenge.Repositories
 {
-    public class EmployeeRespository : IEmployeeRepository
+    public class EmployeeRepository : IEmployeeRepository
     {
         private readonly ApplicationContext _applicationContext;
         private readonly ILogger<IEmployeeRepository> _logger;
 
-        public EmployeeRespository(ILogger<IEmployeeRepository> logger, ApplicationContext applicationContext)
+        public EmployeeRepository(ILogger<IEmployeeRepository> logger, ApplicationContext applicationContext)
         {
             _applicationContext = applicationContext;
             _logger = logger;
@@ -30,6 +30,11 @@ namespace challenge.Repositories
         public Employee GetById(string id)
         {
             return _applicationContext.Employees.SingleOrDefault(e => e.EmployeeId == id);
+        }
+
+        public Employee GetDirectReports(string id)
+        {
+            return _applicationContext.Employees.Include(w => w.DirectReports).SingleOrDefault(e => e.EmployeeId == id);
         }
 
         public Task SaveAsync()

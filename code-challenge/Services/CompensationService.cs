@@ -20,7 +20,7 @@ namespace challenge.Services
 
         public Compensation GetById(string id)
         {
-            if (!String.IsNullOrEmpty(id))
+            if (!string.IsNullOrEmpty(id))
             {
                 return _compensationRepository.GetById(id);
             }

@@ -9,14 +9,35 @@ namespace challenge.Services
 {
     public class ReportingStructureService : IReportingStructureService
     {
-        private readonly IEmployeeRepository _empoyeeRepository;
+        private readonly IEmployeeRepository _employeeRepository;
+
         public ReportingStructureService(IEmployeeRepository employeeRepository)
         {
-            _empoyeeRepository = employeeRepository;
+            _employeeRepository = employeeRepository;
+            
         }
+
         public Employee GetReportingStructure(string id)
         {
-            throw new NotImplementedException();
+            return _employeeRepository.GetDirectReports(id);
+            //var employee = _employeeRepository.GetById(id);
+            //employee.DirectReports = StructureReports(employee);
+
+            //return employee;
         }
+
+        //private List<Employee> StructureReports(Employee currentEmployee)
+        //{
+        //    var directReports = _employeeRepository.GetDirectReports(currentEmployee.EmployeeId);
+        //    if(directReports != null)
+        //    {
+        //        foreach(var report in directReports)
+        //        {
+        //            report.DirectReports = StructureReports(report);
+        //        }
+        //    }
+
+        //    return directReports;
+        //}
     }
 }

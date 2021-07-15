@@ -1,4 +1,4 @@
-using challenge.Controllers;
+using challenge.Repositories;
 using challenge.Data;
 using challenge.Models;
 using Microsoft.AspNetCore;
@@ -14,6 +14,8 @@ using System.Net;
 using System.Net.Http;
 using code_challenge.Tests.Integration.Helpers;
 using System.Text;
+using System.Collections.Generic;
+using challenge.Services;
 
 namespace code_challenge.Tests.Integration
 {
@@ -138,5 +140,6 @@ namespace code_challenge.Tests.Integration
             // Assert
             Assert.AreEqual(HttpStatusCode.NotFound, response.StatusCode);
         }
+        
     }
 }
