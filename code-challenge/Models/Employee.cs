@@ -14,9 +14,4 @@ namespace challenge.Models
         public string Department { get; set; }
         public List<Employee> DirectReports { get; set; }
     }
-
-    //public class DirectReport
-    //{
-    //    public string EmployeeId { get; set; }
-    //}
 }

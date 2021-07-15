@@ -69,24 +69,5 @@ namespace challenge.Data
                 }
             });
         }
-
-
-
-        //private void fixupreferences(employee[] employees)
-        //{
-        //    var employeeidrefmap = from employee in employees
-        //                           select new { id = employee.employeeid, employeeref = employee };
-
-        //    foreach (var employee in employees)
-        //        if (employee.directreports != null)
-        //        {
-        //            directreport[] referencedemployees = new directreport[employee.directreports.length];
-        //            int arrayindex = 0;
-        //            foreach (var report in employee.directreports)
-        //                referencedemployees[arrayindex++] = employeeidrefmap.first(e => e.id == report.employeeid).employeeref;
-
-        //            employee.directreports = referencedemployees;
-        //        }
-        //}
     }
 }
