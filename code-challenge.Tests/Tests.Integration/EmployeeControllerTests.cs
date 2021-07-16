@@ -72,6 +72,8 @@ namespace code_challenge.Tests.Integration
             Assert.AreEqual(employee.Position, newEmployee.Position);
         }
 
+       
+
         [TestMethod]
         public void GetEmployeeById_Returns_Ok()
         {
@@ -89,6 +91,23 @@ namespace code_challenge.Tests.Integration
             var employee = response.DeserializeContent<Employee>();
             Assert.AreEqual(expectedFirstName, employee.FirstName);
             Assert.AreEqual(expectedLastName, employee.LastName);
+        }
+
+        //This test added because there is an additional return path that was not yet tested for within the controller method.
+        [TestMethod]
+        public void GetEmployeeById_Returns_NotFound()
+        {
+            // Arrange
+            var employeeId = "4";
+
+            // Execute
+            var getRequestTask = _httpClient.GetAsync($"api/employee/{employeeId}");
+            var response = getRequestTask.Result;
+
+            // Assert
+            Assert.AreEqual(HttpStatusCode.NotFound, response.StatusCode);
+            var employee = response.DeserializeContent<Employee>();
+            Assert.IsNull(employee);
         }
 
         [TestMethod]
