@@ -23,9 +23,9 @@ namespace challenge.Models
 
         public class Reportable
         {
-            string employeeId { get; }
-            int numberOfReports { get; }
-            Employee employee { get; }
+            public string employeeId { get; }
+            public int numberOfReports { get; }
+            public Employee employee { get; }
 
             public Reportable(string id, int reportNum, Employee employeeWithStructure)
             {
