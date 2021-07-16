@@ -29,7 +29,7 @@ namespace challenge.Repositories
 
         public Employee GetById(string id)
         {
-            return _applicationContext.Employees.SingleOrDefault(e => e.EmployeeId == id);
+            return _applicationContext.Employees.Include(c => c.DirectReports).SingleOrDefault(e => e.EmployeeId == id);
         }
 
         public Employee GetDirectReports(string id)
