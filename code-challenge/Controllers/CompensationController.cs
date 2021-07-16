@@ -33,6 +33,9 @@ namespace challenge.Controllers
             return NotFound();
         }
 
+
+        // Has an instance of IEmployeeService injected from IServiceCollection to this method only, where it is uniquely needed within this controller.
+        // Use of IEmployeeService instance is needed to first confirm an employee with the given EmployeeId exists.
         [HttpPost]
         public IActionResult CreateCompensation([FromBody] Compensation compensation, [FromServices] IEmployeeService employeeService)
         {

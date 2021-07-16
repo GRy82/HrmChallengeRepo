@@ -25,6 +25,7 @@ namespace challenge.Controllers
         {
             _logger.LogDebug($"Received reporting structure get request for '{id}'");
 
+            // IEmployeeRepository used once per instantiation of a ReportingStructure instance
             var employeeRepository = (EmployeeRepository)this.HttpContext.RequestServices.GetService(typeof(IEmployeeRepository));
             var employee = new ReportingStructure(id, employeeRepository);
             var employeeWithReports = employee.GetReportingStructure(); 
