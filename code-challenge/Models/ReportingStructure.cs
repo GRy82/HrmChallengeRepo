@@ -16,28 +16,49 @@ namespace challenge.Models
 
         public ReportingStructure(string employeeId, IEmployeeRepository employeeRepository)
         {
+            this.numberOfReports = 0;
             this.employeeId = employeeId;
             _employeeRepository = employeeRepository;
         }
 
-        public Employee GetReportingStructure()
+        public class Reportable
         {
-            return _employeeRepository.GetDirectReports(this.employeeId);
+            string employeeId { get; }
+            int numberOfReports { get; }
+            Employee employee { get; }
 
+            public Reportable(string id, int reportNum, Employee employeeWithStructure)
+            {
+                employeeId = id;
+                numberOfReports = reportNum;
+                employee = employeeWithStructure;
+            }
         }
 
-        private List<Employee> StructureReports(string id)
+        public Employee GetReportingStructure()
         {
-            var directReports = _employeeRepository.GetDirectReports(id);
-            if (directReports != null)
+            return StructureReports(employeeId);
+        }
+
+        private Employee StructureReports(string id)
+        {
+            var employee = _employeeRepository.GetDirectReports(id);
+
+            if (employee.DirectReports == null)
+                return null;
+
+            for(int i = 0; i < employee.DirectReports.Count; i++)
             {
-                foreach (var report in directReports)
-                {
-                    report.DirectReports = StructureReports(report);
-                }
+                numberOfReports++;
+                employee.DirectReports[i] = StructureReports(employee.DirectReports[i].EmployeeId);
             }
 
-            return directReports;
+            return employee;
+        }
+
+        public Reportable FormatReportingStructure(Employee reportingStructure)
+        {
+            return new Reportable(employeeId, numberOfReports, reportingStructure);
         }
     }
 }

@@ -1,9 +1,6 @@
-<<<<<<< HEAD
 ﻿using challenge.Models;
+using challenge.Repositories;
 using challenge.Services;
-=======
-﻿using challenge.Services;
->>>>>>> 7f79f51b7f3d37424ce24fafc49df9e2157f4fb2
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 using System;
@@ -17,10 +14,9 @@ namespace challenge.Controllers
     public class ReportingStructureController : Controller
     {
         private readonly ILogger _logger;
-        private readonly IReportingStructureService _reportingStructureService;
-        public ReportingStructureController(ILogger<ReportingStructureController> logger, IReportingStructureService reportingStructureService)
+        
+        public ReportingStructureController(ILogger<ReportingStructureController> logger)
         {
-            _reportingStructureService = reportingStructureService;
             _logger = logger;
         }
 
@@ -29,12 +25,15 @@ namespace challenge.Controllers
         {
             _logger.LogDebug($"Received reporting structure get request for '{id}'");
 
-            var employeeWithReports = _reportingStructureService.GetReportingStructure(id);
+            var employeeRepository = (EmployeeRepository)this.HttpContext.RequestServices.GetService(typeof(IEmployeeRepository));
+            var employee = new ReportingStructure(id, employeeRepository);
+            var employeeWithReports = employee.GetReportingStructure(); 
 
             if (employeeWithReports == null)
                 return NotFound();
 
-            return Ok(employeeWithReports);
+            var reportable = employee.FormatReportingStructure(employeeWithReports);
+            return Ok(reportable);
         }
     }
 }
