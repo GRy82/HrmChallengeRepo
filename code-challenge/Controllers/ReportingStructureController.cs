@@ -27,14 +27,13 @@ namespace challenge.Controllers
 
             // IEmployeeRepository used once per instantiation of a ReportingStructure instance
             var employeeRepository = (EmployeeRepository)this.HttpContext.RequestServices.GetService(typeof(IEmployeeRepository));
-            var employee = new ReportingStructure(id, employeeRepository);
-            var employeeWithReports = employee.GetReportingStructure(); 
+            IReportingStructureService employeeStructure = new ReportingStructureService(id, employeeRepository);
+            var reportableStructure = employeeStructure.GetReportingStructure(); 
 
-            if (employeeWithReports == null)
+            if (reportableStructure == null)
                 return NotFound();
 
-            var reportable = employee.FormatReportingStructure(employeeWithReports);
-            return Ok(reportable);
+            return Ok(reportableStructure);
         }
     }
 }

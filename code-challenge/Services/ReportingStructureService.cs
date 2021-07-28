@@ -1,12 +1,14 @@
-﻿using challenge.Repositories;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using challenge.Models;
+using challenge.Repositories;
+using Microsoft.AspNetCore.Mvc;
 
-namespace challenge.Models
+namespace challenge.Services
 {
-    public class ReportingStructure
+    public class ReportingStructureService : IReportingStructureService
     {
         public int numberOfReports;
 
@@ -14,13 +16,12 @@ namespace challenge.Models
 
         private readonly IEmployeeRepository _employeeRepository;
 
-        public ReportingStructure(string employeeId, IEmployeeRepository employeeRepository)
+        public ReportingStructureService(string employeeId, IEmployeeRepository employeeRepository)
         {
             this.numberOfReports = 0;
             this.employeeId = employeeId;
             _employeeRepository = employeeRepository;
         }
-
 
         // This class provides a restructuring for the json response where the full reporting structure can be reported in conjunction with
         // employeeId at the top of the structure, and their numberOfReports.
@@ -45,9 +46,11 @@ namespace challenge.Models
         // of code. 3.) Operations for this class may as well be self-contained/encapsulated together as they're not needed elsewhere.
 
         // This method initiates the recursive process.
-        public Employee GetReportingStructure()
+        public Reportable GetReportingStructure()
         {
-            return StructureReports(employeeId);
+            ResetNumberOfReports();
+            Employee structuredReports = StructureReports(employeeId);
+            return new Reportable(employeeId, numberOfReports, structuredReports);
         }
 
         // This recursive function collects employee ojects that are organized within a report structure in a breadth-first manner, and
@@ -59,7 +62,7 @@ namespace challenge.Models
             if (employee.DirectReports == null)
                 return null;
 
-            for(int i = 0; i < employee.DirectReports.Count; i++)
+            for (int i = 0; i < employee.DirectReports.Count; i++)
             {
                 numberOfReports++;
                 employee.DirectReports[i] = StructureReports(employee.DirectReports[i].EmployeeId);
@@ -68,11 +71,9 @@ namespace challenge.Models
             return employee;
         }
 
-        // Repackages ReportingStructure to new data type that can contain the structure, as well as the employeeId, and numberOfReports
-        // so that the http response can be inclusive of all of this information.  
-        public Reportable FormatReportingStructure(Employee reportingStructure)
+        private void ResetNumberOfReports()
         {
-            return new Reportable(employeeId, numberOfReports, reportingStructure);
+            numberOfReports = 0;
         }
     }
 }

@@ -16,7 +16,7 @@ using code_challenge.Tests.Integration.Helpers;
 using System.Text;
 using System.Collections.Generic;
 using challenge.Services;
-using static challenge.Models.ReportingStructure;
+using static challenge.Services.ReportingStructureService;
 
 namespace code_challenge.Tests.Integration
 {
