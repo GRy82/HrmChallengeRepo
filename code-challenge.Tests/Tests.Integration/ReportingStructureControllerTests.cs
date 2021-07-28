@@ -61,5 +61,17 @@ namespace code_challenge.Tests.Integration
             Assert.AreEqual(2, reportingStructure.employee.DirectReports.Count);
         }
 
+        [TestMethod]
+        public void GetReportingStructure_Returns_NotFound()
+        {
+            //Arrange
+            string employeeId = "16a59";
+
+            //Act
+            var getRequestTask = _httpClient.GetAsync($"api/reporting-structure/{employeeId}");
+            var getResponse = getRequestTask.Result;
+            //Assert
+            Assert.AreEqual(HttpStatusCode.NotFound, getResponse.StatusCode);
+        }
     }
 }

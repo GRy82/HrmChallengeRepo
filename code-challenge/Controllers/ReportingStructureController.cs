@@ -21,17 +21,16 @@ namespace challenge.Controllers
         }
 
         [HttpGet("{id}", Name = "getReportStructureById")]
-        public IActionResult GetReportStructureById(string id)
+        public IActionResult GetReportStructureById(string id, [FromServices] IEmployeeRepository employeeRepository)
         {
             _logger.LogDebug($"Received reporting structure get request for '{id}'");
 
-            // IEmployeeRepository used once per instantiation of a ReportingStructure instance
-            var employeeRepository = (EmployeeRepository)this.HttpContext.RequestServices.GetService(typeof(IEmployeeRepository));
+            bool employeeExists = employeeRepository.GetById(id) != null;
+            if (!employeeExists)
+                return NotFound();
+
             IReportingStructureService employeeStructure = new ReportingStructureService(id, employeeRepository);
             var reportableStructure = employeeStructure.GetReportingStructure(); 
-
-            if (reportableStructure == null)
-                return NotFound();
 
             return Ok(reportableStructure);
         }
